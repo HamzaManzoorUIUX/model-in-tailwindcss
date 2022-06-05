@@ -1,25 +1,92 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Dropdown from './component/Dropdown';
+import UserList from './component/UserList';
 
-function App() {
+const App = () => {
+  const data = [
+    {
+      id: 1,
+      name: 'Evelin (You)',
+      is_owner: true,
+      color: 'bg-black',
+    },
+    {
+      id: 2,
+      name: 'Sophia Doe',
+      is_owner: false,
+      color: 'bg-rose-400',
+    },
+    {
+      id: 3,
+      name: 'Jacob Jones',
+      is_owner: false,
+      color: 'bg-emerald-400',
+    },
+    {
+      id: 4,
+      name: 'Jacob Jones',
+      is_owner: false,
+      color: 'bg-purple-400',
+    },
+    {
+      id: 5,
+      name: 'Jacob Jones',
+      is_owner: false,
+      color: 'bg-cyan-400',
+    },
+  ];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="max-w-[550px] modal-shadow bg-white rounded-md">
+      <div className="p-4 border-stone-300 border-b">
+        <div className="text-[15px] line-height-[21px] font-black mb-4 text-stone-900">
+          Invite users
+        </div>
+        <div className="flex justify-between items-center">
+          <input
+            placeholder="Email(press enter for multiple)"
+            className="max-w-[406px] w-full border rounded border-stone-400 pl-[10px] py-[4px] text-base"
+          />
+          <button
+            type="button"
+            disabled
+            className="w-[100px] h-[34px] flex justify-center items-center text-base text-stone-500 bg-stone-200 rounded"
+          >
+            Send Invite
+          </button>
+        </div>
+      </div>
+      <div className="pt-[9px] pb-3">
+        {data.map((obj) => (
+          <UserList key={obj.id} data={obj} />
+        ))}
+      </div>
+      <div className="p-4 border-t border-stone-300 flex justify-between items-center h-[53px]">
+        <div className="flex items-center">
+          <svg
+            width="16"
+            height="15"
+            viewBox="0 0 16 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.0825 10.0425L5.1725 12.9525C4.82018 13.2925 4.34964 13.4826 3.86 13.4826C3.37036 13.4826 2.89982 13.2925 2.5475 12.9525C2.3747 12.7804 2.23759 12.5758 2.14404 12.3506C2.05048 12.1254 2.00232 11.8839 2.00232 11.64C2.00232 11.3961 2.05048 11.1546 2.14404 10.9294C2.23759 10.7042 2.3747 10.4996 2.5475 10.3275L5.4575 7.41749C5.59873 7.27627 5.67807 7.08472 5.67807 6.88499C5.67807 6.68527 5.59873 6.49372 5.4575 6.35249C5.31627 6.21127 5.12473 6.13193 4.925 6.13193C4.72527 6.13193 4.53373 6.21127 4.3925 6.35249L1.4825 9.26999C0.896267 9.90809 0.579215 10.748 0.597555 11.6143C0.615896 12.4806 0.96821 13.3064 1.58092 13.9191C2.19364 14.5318 3.01937 14.8841 3.88568 14.9024C4.752 14.9208 5.5919 14.6037 6.23 14.0175L9.1475 11.1075C9.28873 10.9663 9.36807 10.7747 9.36807 10.575C9.36807 10.3753 9.28873 10.1837 9.1475 10.0425C9.00627 9.90127 8.81472 9.82193 8.615 9.82193C8.41527 9.82193 8.22373 9.90127 8.0825 10.0425ZM14.5175 0.982495C13.8866 0.3555 13.0332 0.00358582 12.1437 0.00358582C11.2543 0.00358582 10.4009 0.3555 9.77 0.982495L6.8525 3.89249C6.78257 3.96242 6.7271 4.04544 6.68925 4.13681C6.65141 4.22817 6.63193 4.3261 6.63193 4.42499C6.63193 4.52389 6.65141 4.62182 6.68925 4.71318C6.7271 4.80455 6.78257 4.88757 6.8525 4.95749C6.92243 5.02742 7.00545 5.08289 7.09681 5.12074C7.18818 5.15858 7.28611 5.17806 7.385 5.17806C7.48389 5.17806 7.58182 5.15858 7.67319 5.12074C7.76455 5.08289 7.84757 5.02742 7.9175 4.95749L10.8275 2.04749C11.1798 1.70746 11.6504 1.51744 12.14 1.51744C12.6296 1.51744 13.1002 1.70746 13.4525 2.04749C13.6253 2.21961 13.7624 2.42415 13.856 2.64938C13.9495 2.87462 13.9977 3.11611 13.9977 3.35999C13.9977 3.60388 13.9495 3.84537 13.856 4.07061C13.7624 4.29584 13.6253 4.50038 13.4525 4.67249L10.5425 7.58249C10.4722 7.65222 10.4164 7.73517 10.3783 7.82656C10.3403 7.91796 10.3207 8.01599 10.3207 8.11499C10.3207 8.214 10.3403 8.31203 10.3783 8.40343C10.4164 8.49482 10.4722 8.57777 10.5425 8.64749C10.6122 8.71779 10.6952 8.77359 10.7866 8.81166C10.878 8.84974 10.976 8.86934 11.075 8.86934C11.174 8.86934 11.272 8.84974 11.3634 8.81166C11.4548 8.77359 11.5378 8.71779 11.6075 8.64749L14.5175 5.72999C15.1445 5.09908 15.4964 4.24573 15.4964 3.35624C15.4964 2.46676 15.1445 1.61341 14.5175 0.982495ZM5.6225 9.87749C5.69258 9.94701 5.77569 10.002 5.86707 10.0393C5.95845 10.0766 6.05629 10.0956 6.155 10.095C6.2537 10.0956 6.35155 10.0766 6.44293 10.0393C6.53431 10.002 6.61742 9.94701 6.6875 9.87749L10.3775 6.18749C10.5187 6.04627 10.5981 5.85472 10.5981 5.65499C10.5981 5.45527 10.5187 5.26372 10.3775 5.12249C10.2363 4.98127 10.0447 4.90193 9.845 4.90193C9.64527 4.90193 9.45373 4.98127 9.3125 5.12249L5.6225 8.81249C5.5522 8.88222 5.49641 8.96517 5.45833 9.05656C5.42025 9.14796 5.40065 9.24599 5.40065 9.34499C5.40065 9.444 5.42025 9.54203 5.45833 9.63343C5.49641 9.72482 5.5522 9.80777 5.6225 9.87749Z"
+              fill="#10B981"
+            />
+          </svg>
+          <div className="text-emerald-500 text-[15px] line-height-[21px] ml-[5.5px]">
+            Copy story link
+          </div>
+        </div>
+        <div className="flex items-center">
+          <div className='text-[15px] line-height-[21px] text-stone-800 mr-[6px]'>
+          Anyone with link:
+          </div>
+          <Dropdown/>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
